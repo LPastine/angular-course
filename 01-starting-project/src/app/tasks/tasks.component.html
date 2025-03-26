@@ -6,7 +6,7 @@
     </menu>
   </header>
   <ul>
-    <li>
+    <li *ngFor="let task of selectedUserTasks">
       <app-task />
     </li>
   </ul>
