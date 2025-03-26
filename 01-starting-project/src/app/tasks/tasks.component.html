@@ -7,7 +7,7 @@
   </header>
   <ul>
     <li *ngFor="let task of selectedUserTasks">
-      <app-task />
+      <app-task [task]="task" />
     </li>
   </ul>
 </section>
