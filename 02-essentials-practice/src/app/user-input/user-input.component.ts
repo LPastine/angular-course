@@ -6,4 +6,8 @@ import { Component } from '@angular/core';
   templateUrl: './user-input.component.html',
   styleUrl: './user-input.component.css',
 })
-export class UserInputComponent {}
+export class UserInputComponent {
+  onSubmit() {
+    console.log('SUBMITTED!');
+  }
+}
