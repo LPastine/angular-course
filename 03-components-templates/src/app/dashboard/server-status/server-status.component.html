@@ -1,22 +1,16 @@
-<article>
-  <header>
-    <img src="status.png" alt="A signal symbol" />
-    <h2>Server Status</h2>
-  </header>
-  <div *ngIf="currentStatus === 'online'; else offline">
-    <p>Servers are online</p>
-    <p>All systems are operational.</p>
+<div *ngIf="currentStatus === 'online'; else offline">
+  <p>Servers are online</p>
+  <p>All systems are operational.</p>
+</div>
+
+<ng-template #offline>
+  <div *ngIf="currentStatus === 'offline'; else unknown">
+    <p>Servers are offline</p>
+    <p>Functionality should be restored soon.</p>
   </div>
+</ng-template>
 
-  <ng-template #offline>
-    <div *ngIf="currentStatus === 'offline'; else unknown">
-      <p>Servers are offline</p>
-      <p>Functionality should be restored soon.</p>
-    </div>
-  </ng-template>
-
-  <ng-template #unknown>
-    <p>Server status is unknown</p>
-    <p>Fetching server status failed.</p>
-  </ng-template>
-</article>
+<ng-template #unknown>
+  <p>Server status is unknown</p>
+  <p>Fetching server status failed.</p>
+</ng-template>
