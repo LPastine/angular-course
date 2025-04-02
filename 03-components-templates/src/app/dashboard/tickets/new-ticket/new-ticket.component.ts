@@ -6,4 +6,8 @@ import { Component } from '@angular/core';
   templateUrl: './new-ticket.component.html',
   styleUrl: './new-ticket.component.css',
 })
-export class NewTicketComponent {}
+export class NewTicketComponent {
+  onSubmit() {
+    console.log('SUBMITTED!');
+  }
+}
