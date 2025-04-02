@@ -1,6 +1,11 @@
 <div
   id="status"
-  [class.status]="currentStatus === 'online'"
+  [class]="{
+    status: true,
+    'status-online': currentStatus === 'online',
+    'status-offline': currentStatus === 'offline',
+    'status-unknown': currentStatus === 'unknown'
+  }"
   *ngIf="currentStatus === 'online'; else offline"
 >
   <p>Servers are online</p>
