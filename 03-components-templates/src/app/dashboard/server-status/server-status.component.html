@@ -6,6 +6,9 @@
     'status-offline': currentStatus === 'offline',
     'status-unknown': currentStatus === 'unknown'
   }"
+  [style]="{
+    'font-size': '18px'
+  }"
   *ngIf="currentStatus === 'online'; else offline"
 >
   <p>Servers are online</p>
