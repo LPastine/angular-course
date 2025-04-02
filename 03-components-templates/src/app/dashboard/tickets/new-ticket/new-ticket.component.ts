@@ -7,7 +7,8 @@ import { Component } from '@angular/core';
   styleUrl: './new-ticket.component.css',
 })
 export class NewTicketComponent {
-  onSubmit() {
-    console.log('SUBMITTED!');
+  onSubmit(titleElement: HTMLInputElement) {
+    const enteredTitle = titleElement.value;
+    console.log('ENTERED TITLE ' + enteredTitle);
   }
 }
