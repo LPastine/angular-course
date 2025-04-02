@@ -6,13 +6,11 @@
     'status-offline': currentStatus === 'offline',
     'status-unknown': currentStatus === 'unknown'
   }"
-  [style]="{
-    'font-size': '18px'
-  }"
-  *ngIf="currentStatus === 'online'; else offline"
 >
-  <p>Servers are online</p>
-  <p>All systems are operational.</p>
+  <div *ngIf="currentStatus === 'online'; else offline">
+    <p>Servers are online</p>
+    <p>All systems are operational.</p>
+  </div>
 </div>
 
 <ng-template #offline>
