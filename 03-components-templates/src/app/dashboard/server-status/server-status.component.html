@@ -1,4 +1,8 @@
-<div id="status" *ngIf="currentStatus === 'online'; else offline">
+<div
+  id="status"
+  [class.status]="currentStatus === 'online'"
+  *ngIf="currentStatus === 'online'; else offline"
+>
   <p>Servers are online</p>
   <p>All systems are operational.</p>
 </div>
