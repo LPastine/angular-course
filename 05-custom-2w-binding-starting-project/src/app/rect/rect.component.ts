@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, model, Output } from '@angular/core';
 
 interface TwoDimensional {
   width: string;
@@ -14,12 +14,14 @@ interface TwoDimensional {
 })
 export class RectComponent {
   // Todo: Implement custom two-way binding
-  @Input({ required: true }) size!: TwoDimensional;
-  @Output() sizeChange = new EventEmitter<TwoDimensional>();
+  // @Input({ required: true }) size!: TwoDimensional;
+  // @Output() sizeChange = new EventEmitter<TwoDimensional>();
+
+  size = model.required<TwoDimensional>();
 
   onReset() {
-    this.sizeChange.emit({
-      width: '200',
+    this.size.set({
+      width: '100',
       height: '100',
     });
   }
