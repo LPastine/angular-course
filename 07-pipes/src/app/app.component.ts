@@ -18,11 +18,18 @@ export class AppComponent {
     chicago: 65.0775238,
   };
 
+  constructor() {
+    this.historicTemperatures.sort((a, b) => (a > b ? 1 : -1));
+  }
+
   historicTemperatures = [
     25, 37, 19, -4, 28, 21, 19, 28, 33, 31, 9, 11, 5, -12, -5,
   ];
 
   onReset(index: number) {
-    this.historicTemperatures[index] = 18;
+    // this.historicTemperatures[index] = 18;
+    const newTemps = [...this.historicTemperatures];
+    newTemps[index] = 18;
+    this.historicTemperatures = newTemps;
   }
 }
