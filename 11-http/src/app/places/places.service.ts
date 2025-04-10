@@ -2,7 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 
 import { Place } from './place.model';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, throwError } from 'rxjs';
+import { catchError, map, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,12 +24,21 @@ export class PlacesService {
     return this.fetchPlaces(
       'http://localhost:3000/user-places',
       'Something went wrong fetching your favorite places. Please try again later'
+    ).pipe(
+      tap({
+        next: (userPlaces: Place[] | undefined) => {
+          if (!userPlaces) return;
+          this.userPlaces.set(userPlaces);
+        },
+      })
     );
   }
 
-  addPlaceToUserPlaces(placeId: string) {
+  addPlaceToUserPlaces(place: Place) {
+    this.userPlaces.update((prevPlaces) => [...prevPlaces, place]);
+
     return this.httpClient.put('http://localhost:3000/user-places', {
-      placeId,
+      placeId: place.id,
     });
   }
 
