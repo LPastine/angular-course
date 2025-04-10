@@ -1,10 +1,9 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 import { Place } from '../place.model';
 import { PlacesComponent } from '../places.component';
 import { PlacesContainerComponent } from '../places-container/places-container.component';
-import { catchError, map, throwError } from 'rxjs';
+import { PlacesService } from '../places.service';
 
 @Component({
   selector: 'app-available-places',
@@ -17,33 +16,13 @@ export class AvailablePlacesComponent implements OnInit {
   places = signal<Place[] | undefined>(undefined);
   isFetching = signal(false);
   error = signal('');
-  private httpClient = inject(HttpClient);
+  private placesService = inject(PlacesService);
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.isFetching.set(true);
-    const subscription = this.httpClient
-      // Configure Http Request
-      .get<{ places: Array<Place> }>('http://localhost:3000/places', {
-        observe: 'response',
-      })
-
-      // Data manipulation on response
-      .pipe(
-        // Manipulating data on successful/expected response
-        map((response) => response.body?.places),
-
-        // Manipulating response in case of failed request
-        catchError((error) => {
-          console.error(error);
-          return throwError(
-            () =>
-              new Error(
-                'Something went wrong fetching the available places. Please try again later'
-              )
-          );
-        })
-      )
+    const subscription = this.placesService
+      .loadAvailablePlaces()
 
       // Subscription
       .subscribe({
@@ -70,12 +49,14 @@ export class AvailablePlacesComponent implements OnInit {
   }
 
   onSelectPlace(selectedPlace: Place) {
-    this.httpClient
-      .put('http://localhost:3000/user-places', {
-        placeId: selectedPlace.id,
-      })
+    const subscription = this.placesService
+      .addPlaceToUserPlaces(selectedPlace.id)
       .subscribe({
         next: (response) => console.log(response),
       });
+
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
   }
 }
