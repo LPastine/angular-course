@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 import { TaskComponent } from './task/task.component';
 import { Task } from './task/task.model';
@@ -12,4 +12,5 @@ import { Task } from './task/task.model';
 })
 export class TasksComponent {
   userTasks: Task[] = [];
+  userId = input.required<string>();
 }
